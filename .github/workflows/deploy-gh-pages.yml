@@ -1,4 +1,4 @@
-name: Build and deploy to gh-pages
+name: Build and deploy to GitHub Pages (artifact)
 
 on:
   push:
@@ -6,11 +6,14 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
+    permissions: {}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -39,12 +42,17 @@ jobs:
       - name: Build site
         run: pnpm run build
 
-        # The build output is assumed to be in the 'docs' folder
-        # Adjust the 'folder' input in the deploy step if different
-      - name: Deploy to gh-pages branch
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v1
         with:
-          branch: gh-pages
-          folder: docs
-          clean: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+          path: ./docs
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
