@@ -10,7 +10,7 @@ export default defineConfig({
     Pages({ extensions: ["vue", "md"] }),
     Markdown(),
   ],
-  base: "/CyrilsCV/",
+  base: "/VuetifyVue/",
   build: {
     outDir: "docs", //output to 'docs' for GitHub Pages
   },
