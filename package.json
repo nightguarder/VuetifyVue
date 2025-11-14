@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
+    "build:local": "vue-tsc -b && vite build --base ./ && cp -f docs/index.html docs/404.html",
     "preview": "vite preview"
   },
   "dependencies": {
