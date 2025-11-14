@@ -42,8 +42,8 @@ jobs:
       - name: Build site
         run: pnpm run build
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v1
+      - name: Upload Pages artifact (v4)
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./docs
 
